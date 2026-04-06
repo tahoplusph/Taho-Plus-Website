@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu — TAHO+ | Frozen Taho Flavors Philippines</title>
+  <meta name="description" content="Explore the full TAHO+ menu — Classic, Mango, Strawberry, Cookie, Golden Trio, Mi Ultimo, and our self-serve Swirl Your Own bar. The Original Frozen Taho in the Philippines." />
+  <link rel="canonical" href="https://www.tahoplusph.com/menu" />
+  <link rel="icon" type="image/png" href="Logos/Taho%2B%20Boy.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --cement:       #CDCDCE;
+      --cement-light: #D8D8DA;
+      --cement-dark:  #BEBEC0;
+      --stone:        #AEAEB2;
+      --stone-dark:   #808084;
+      --steel:        #2C3038;
+      --steel-mid:    #383C44;
+      --aluminum:     #A8ACB4;
+      --aluminum-bright: #CDD0D6;
+      --silver:       #B8BCC4;
+      --silver-light: #D4D8DE;
+      --text-body:    rgba(40,44,50,0.6);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: #C8C8CA;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9%200.04' numOctaves='3' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)' opacity='0.07'/%3E%3C/svg%3E"),
+        radial-gradient(ellipse at 42% 38%, rgba(255,255,255,0.18) 0%, transparent 52%),
+        linear-gradient(112deg,#A4A4A6 0%,#C0C0C2 6%,#D8D8DA 12%,#EFEFEF 19%,#FAFAFA 23%,#F2F2F4 27%,#DCDCDE 33%,#C4C4C6 40%,#BCBCBE 48%,#C8C8CA 54%,#D8D8DA 60%,#EBEBED 67%,#F6F6F8 72%,#EEEEEF 76%,#D8D8DA 82%,#C0C0C2 89%,#ABABAC 100%);
+      background-size: 400px 400px, 100% 100%, 100% 100%;
+      background-attachment: fixed, fixed, fixed;
+      color: var(--steel);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .grain {
+      position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+      opacity: 0.038;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 140px;
+    }
+
+    /* NAV */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 1.4rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(230,230,232,0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+    }
+    #nav-logo { height: 38px; width: auto; }
+    .nav-links { display: flex; gap: 2.25rem; align-items: center; }
+    .nav-link {
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--steel); text-decoration: none;
+      transition: opacity 0.2s ease;
+      position: relative;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; left: 0; bottom: -2px;
+      width: 0; height: 1px; background: currentColor;
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link.active::after { width: 100%; }
+
+    /* PAGE HERO */
+    .page-hero {
+      padding: 10rem 2.5rem 5rem;
+      max-width: 1200px; margin: 0 auto;
+      border-bottom: 1px solid rgba(100,100,104,0.2);
+    }
+    .page-hero .section-label {
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--stone-dark); margin-bottom: 2rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .page-hero .section-label::before {
+      content: ''; display: block; width: 1.75rem; height: 1px; background: var(--stone);
+    }
+    .page-hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 10vw, 9rem);
+      line-height: 0.9; letter-spacing: 0.04em;
+      color: var(--steel);
+    }
+    .page-hero p {
+      margin-top: 2rem;
+      font-size: 0.9rem; line-height: 1.8;
+      color: var(--text-body); font-weight: 300;
+      max-width: 520px;
+    }
+
+    /* SECTION */
+    .section { padding: 6rem 2.5rem; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--stone-dark); margin-bottom: 3.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .section-label::before {
+      content: ''; display: block; width: 1.75rem; height: 1px; background: var(--stone);
+    }
+    .section-label.light { color: rgba(244,240,235,0.45); }
+    .section-label.light::before { background: rgba(244,240,235,0.2); }
+
+    .heading-xl {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem,6vw,5.5rem);
+      line-height: 0.92; letter-spacing: 0.04em;
+      color: var(--steel);
+    }
+    .heading-xl.light { color: var(--cement-light); }
+    .body-sm {
+      font-size: 0.9rem; line-height: 1.8;
+      color: var(--text-body); font-weight: 300;
+    }
+    .body-sm.light { color: rgba(244,240,235,0.55); }
+
+    /* PRODUCT GRID */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+    @media (max-width: 900px) { .products-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 580px) { .products-grid { grid-template-columns: 1fr; } }
+
+    .product-card {
+      background: rgba(220,220,222,0.45);
+      border: 1px solid rgba(255,255,255,0.5);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(44,48,56,0.12), 0 2px 8px rgba(44,48,56,0.08);
+    }
+    .product-img-wrap {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      background: rgba(200,200,202,0.3);
+    }
+    .product-img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-img { transform: scale(1.03); }
+
+    .product-sheen {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.04) 45%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 55%, transparent 70%);
+      background-size: 200% 100%;
+      animation: sheen 5s ease-in-out infinite;
+    }
+    @keyframes sheen { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    .product-meta {
+      padding: 1.5rem 1.5rem 1.75rem;
+      border-top: 1px solid rgba(100,100,104,0.15);
+    }
+    .product-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.35rem; letter-spacing: 0.06em;
+      color: var(--steel); margin-bottom: 0.6rem;
+    }
+    .product-desc {
+      font-size: 0.82rem; line-height: 1.75;
+      color: var(--text-body); font-weight: 300;
+    }
+
+    /* SWIRL BANNER */
+    .swirl-banner {
+      background: var(--steel);
+      padding: 3.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) { .swirl-banner { grid-template-columns: 1fr; gap: 2.5rem; padding: 2.5rem; } }
+
+    .swirl-eyebrow {
+      font-size: 0.6rem; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(244,240,235,0.35); margin-bottom: 1rem;
+    }
+    .swirl-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 0.88; letter-spacing: 0.04em;
+      color: var(--cement-light); margin-bottom: 1.5rem;
+    }
+    .swirl-desc {
+      font-size: 0.85rem; line-height: 1.8;
+      color: rgba(244,240,235,0.5); font-weight: 300;
+      margin-bottom: 1.5rem; max-width: 340px;
+    }
+    .swirl-weight-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(244,240,235,0.55);
+      border: 1px solid rgba(244,240,235,0.15);
+      padding: 0.5rem 1rem;
+    }
+    .swirl-steps { display: flex; flex-direction: column; gap: 0; }
+    .swirl-step {
+      display: flex; gap: 1.25rem; align-items: start;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid rgba(244,240,235,0.08);
+    }
+    .swirl-step:last-child { border-bottom: none; }
+    .swirl-step-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem; letter-spacing: 0.08em;
+      color: rgba(244,240,235,0.2); flex-shrink: 0; padding-top: 2px;
+    }
+    .swirl-step-name {
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: rgba(244,240,235,0.75); margin-bottom: 0.3rem;
+    }
+    .swirl-step-detail {
+      font-size: 0.8rem; line-height: 1.7;
+      color: rgba(244,240,235,0.38); font-weight: 300;
+    }
+
+    /* FOOTER */
+    #footer {
+      background: var(--steel);
+      padding: 3.5rem 2.5rem 2.5rem;
+      border-top: 1px solid rgba(200,208,220,0.1);
+    }
+    .footer-top {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 3rem; flex-wrap: wrap; gap: 2rem;
+    }
+    .footer-logo { height: 32px; width: auto; }
+    .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .footer-link {
+      font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(244,240,235,0.4); text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .footer-link:hover { color: rgba(244,240,235,0.8); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+      border-top: 1px solid rgba(200,208,220,0.08); padding-top: 1.5rem;
+    }
+    .footer-copy {
+      font-size: 0.65rem; letter-spacing: 0.1em;
+      color: rgba(244,240,235,0.25);
+    }
+
+    @media (max-width: 640px) {
+      #nav { padding: 1.2rem 1.5rem; }
+      .page-hero { padding: 8rem 1.5rem 4rem; }
+      .section { padding: 5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html">
+    <img src="Logos/Taho%2B%20Logo%20no%20char.png" alt="TAHO+" id="nav-logo" />
+  </a>
+  <div class="nav-links">
+    <a href="menu.html" class="nav-link active">Menu</a>
+    <a href="index.html#story" class="nav-link">Our Story</a>
+    <a href="locations.html" class="nav-link">Locations</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="section-label">TAHO+ — Our Menu</div>
+  <h1>Our<br>Menu</h1>
+  <p>Six signature frozen taho creations — each one rooted in Filipino flavor, reimagined as a modern frozen treat. Plus our self-serve Swirl Your Own bar at select locations.</p>
+</div>
+
+<!-- PRODUCTS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label">Signature Flavors</div>
+
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="Products/Classic%20TAHO%2B.png" class="product-img" alt="Classic TAHO+ frozen taho Philippines" />
+          <div class="product-sheen"></div>
+        </div>
+        <div class="product-meta">
+          <div class="product-name">Classic TAHO+</div>
+          <p class="product-desc">The original. Taho soft serve drizzled with arnibal, topped with sago pearls and black tapioca. Where it all started.</p>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="Products/Cookie%20TAHO%2B.png" class="product-img" alt="Cookie TAHO+ cookies and cream frozen taho" />
+          <div class="product-sheen"></div>
+        </div>
+        <div class="product-meta">
+          <div class="product-name">Cookie TAHO+</div>
+          <p class="product-desc">Cookies and cream meets frozen taho. Crushed Oreo crumbles over taho soft serve with black tapioca.</p>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="Products/Golden%20Trio.png" class="product-img" alt="Golden Trio honey nut frozen taho" />
+          <div class="product-sheen"></div>
+        </div>
+        <div class="product-meta">
+          <div class="product-name">Golden Trio</div>
+          <p class="product-desc">Honey-kissed taho soft serve crowned with premium mixed nuts and sago pearls. Sweet, nutty, and beautifully elevated.</p>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="Products/Mango%20TAHO%2B.png" class="product-img" alt="Mango TAHO+ mango frozen taho Philippines" />
+          <div class="product-sheen"></div>
+        </div>
+        <div class="product-meta">
+          <div class="product-name">Mango TAHO+</div>
+          <p class="product-desc">Sun-ripened mango chunks and arnibal swirled through our taho soft serve with black tapioca and Lengua de Gato.</p>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="Products/Mi%20Ultimo.png" class="product-img" alt="Mi Ultimo premium frozen taho loaded cup" />
+          <div class="product-sheen"></div>
+        </div>
+        <div class="product-meta">
+          <div class="product-name">Mi Ultimo</div>
+          <p class="product-desc">Our most loaded cup. Honey, mixed nuts, fresh fruits, and black pearls — the ultimate TAHO+ experience.</p>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="Products/Strawberry%20TAHO%2B.png" class="product-img" alt="Strawberry TAHO+ strawberry frozen taho" />
+          <div class="product-sheen"></div>
+        </div>
+        <div class="product-meta">
+          <div class="product-name">Strawberry TAHO+</div>
+          <p class="product-desc">Vibrant strawberry taho soft serve with fresh strawberries, black tapioca pearls, and Lengua de Gato.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Swirl Your Own -->
+    <div class="swirl-banner">
+      <div>
+        <div class="swirl-eyebrow">Only available in select stores</div>
+        <div class="swirl-title">Swirl<br>Your Own!</div>
+        <p class="swirl-desc">Take control. Walk up to our self-serve bar, swirl your own taho base, load up on toppings, and pay by weight. No two cups are the same.</p>
+        <div class="swirl-weight-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12l1 6H5L6 2z"/><path d="M5 8l1.5 13h11L19 8"/><path d="M9 12h6"/></svg>
+          Priced by weight
+        </div>
+      </div>
+      <div class="swirl-steps">
+        <div class="swirl-step">
+          <div class="swirl-step-num">01</div>
+          <div class="swirl-step-body">
+            <div class="swirl-step-name">Choose Your Base</div>
+            <div class="swirl-step-detail">Pick from our classic taho soft serve or any available seasonal flavors.</div>
+          </div>
+        </div>
+        <div class="swirl-step">
+          <div class="swirl-step-num">02</div>
+          <div class="swirl-step-body">
+            <div class="swirl-step-name">Swirl It Yourself</div>
+            <div class="swirl-step-detail">Step up to the machine and swirl your own cup — as much or as little as you like.</div>
+          </div>
+        </div>
+        <div class="swirl-step">
+          <div class="swirl-step-num">03</div>
+          <div class="swirl-step-body">
+            <div class="swirl-step-name">Load Your Toppings</div>
+            <div class="swirl-step-detail">Arnibal, sago, black tapioca, fresh fruits, nuts, cookies, and more from our toppings bar.</div>
+          </div>
+        </div>
+        <div class="swirl-step">
+          <div class="swirl-step-num">04</div>
+          <div class="swirl-step-body">
+            <div class="swirl-step-name">Weigh &amp; Pay</div>
+            <div class="swirl-step-detail">Your cup goes on the scale. You pay for exactly what you built — nothing more.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="footer-top">
+      <img src="Logos/Taho%2B%20Logo%20no%20char.png" alt="TAHO+" class="footer-logo" />
+      <div class="footer-links">
+        <a href="menu.html" class="footer-link">Menu</a>
+        <a href="index.html#story" class="footer-link">Our Story</a>
+        <a href="index.html#process" class="footer-link">Mission</a>
+        <a href="locations.html" class="footer-link">Locations</a>
+        <a href="index.html#faq" class="footer-link">FAQ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 TAHO+ — The Original Frozen Taho. All rights reserved.</span>
+      <span class="footer-copy">Manila, Philippines</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

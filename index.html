@@ -3,7 +3,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TAHO+ — The Original Frozen Taho</title>
+  <title>TAHO+ — The Original Frozen Taho in the Philippines</title>
+  <meta name="description" content="TAHO+ is the first and most trusted Frozen Taho brand in the Philippines. Enjoy classic Filipino taho reimagined as a modern frozen soft serve — available at SM Megamall, SM Fairview, and SM North EDSA." />
+  <meta name="keywords" content="frozen taho, taho Philippines, taho soft serve, TAHO+, Filipino dessert, taho Metro Manila, frozen dessert Philippines" />
+  <link rel="canonical" href="https://www.tahoplusph.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.tahoplusph.com/" />
+  <meta property="og:title" content="TAHO+ — The Original Frozen Taho in the Philippines" />
+  <meta property="og:description" content="Classic Filipino taho reimagined as a modern frozen soft serve. Available now at SM Megamall, SM City Fairview, and SM North EDSA." />
+  <meta property="og:image" content="https://www.tahoplusph.com/Assets%20for%20TAHO%2B/TAHO%2B%20Lineup%20with%20Brand%20Name.png" />
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="TAHO+" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TAHO+ — The Original Frozen Taho in the Philippines" />
+  <meta name="twitter:description" content="Classic Filipino taho reimagined as a modern frozen soft serve. Available now in Metro Manila." />
+  <meta name="twitter:image" content="https://www.tahoplusph.com/Assets%20for%20TAHO%2B/TAHO%2B%20Lineup%20with%20Brand%20Name.png" />
+
+  <!-- Schema.org LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FoodEstablishment",
+    "name": "TAHO+",
+    "description": "The Original Frozen Taho in the Philippines — classic Filipino taho reimagined as a modern frozen soft serve.",
+    "url": "https://www.tahoplusph.com/",
+    "logo": "https://www.tahoplusph.com/Logos/Taho%2B%20Logo%20no%20char.png",
+    "image": "https://www.tahoplusph.com/Assets%20for%20TAHO%2B/TAHO%2B%20Lineup%20with%20Brand%20Name.png",
+    "servesCuisine": "Filipino",
+    "priceRange": "₱",
+    "areaServed": "Metro Manila, Philippines",
+    "location": [
+      {
+        "@type": "Place",
+        "name": "TAHO+ SM Megamall",
+        "address": { "@type": "PostalAddress", "streetAddress": "Building B, Lower Ground Floor, SM Megamall", "addressLocality": "Mandaluyong", "addressRegion": "Metro Manila", "addressCountry": "PH" }
+      },
+      {
+        "@type": "Place",
+        "name": "TAHO+ SM City Fairview",
+        "address": { "@type": "PostalAddress", "streetAddress": "Main Building, 2nd Level, Near Cinema, SM City Fairview", "addressLocality": "Quezon City", "addressRegion": "Metro Manila", "addressCountry": "PH" }
+      },
+      {
+        "@type": "Place",
+        "name": "TAHO+ SM North EDSA",
+        "address": { "@type": "PostalAddress", "streetAddress": "Main Building, Lower Ground Floor, SM North EDSA", "addressLocality": "Quezon City", "addressRegion": "Metro Manila", "addressCountry": "PH" }
+      }
+    ],
+    "sameAs": ["https://github.com/tahoplusph/Taho-Plus-Website"]
+  }
+  </script>
+
   <link rel="icon" type="image/png" href="Logos/Taho%2B%20Boy.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -389,13 +442,13 @@
     }
 
     .statement-left .big-quote {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(2.4rem, 4vw, 3.75rem);
-      font-weight: 300; line-height: 1.18;
+      font-weight: 400; line-height: 1.05; letter-spacing: 0.04em;
       color: var(--cement-light);
     }
     .statement-left .big-quote em {
-      font-style: italic; color: rgba(244,240,235,0.55);
+      font-style: normal; color: rgba(244,240,235,0.55);
     }
 
     .statement-right {
@@ -881,9 +934,9 @@
 <nav id="nav">
   <img src="Logos/Taho%2B%20Logo%20no%20char.png" alt="TAHO+" id="nav-logo" />
   <div class="nav-links">
-    <a href="#products" class="nav-link" id="nl-1">Products</a>
+    <a href="menu.html" class="nav-link" id="nl-1">Menu</a>
     <a href="#story" class="nav-link" id="nl-2">Our Story</a>
-    <a href="#locations" class="nav-link" id="nl-3">Locations</a>
+    <a href="locations.html" class="nav-link" id="nl-3">Locations</a>
     <a href="#franchise" class="nav-link" id="nl-4" style="display:none">Franchise</a>
   </div>
 </nav>
@@ -1095,7 +1148,7 @@
         <div class="story-grid">
           <div>
             <img src="Logos/Taho%2B%20Logo%20no%20char.png" alt="TAHO+" style="height:90px;width:auto;margin-bottom:2rem;display:block;" />
-            <h2 class="heading-editorial" style="margin-bottom:2rem;">
+            <h2 class="heading-xl" style="margin-bottom:2rem;font-size:clamp(2rem,3.5vw,3.25rem);">
               A brand born from a love for tradition and a passion for innovation.
             </h2>
             <div class="divider" style="margin-bottom:2rem;"></div>
@@ -1310,10 +1363,10 @@
         <div class="footer-top">
           <img src="Logos/Taho%2B%20Logo%20no%20char.png" alt="TAHO+" class="footer-logo" />
           <div class="footer-links">
-            <a href="#products" class="footer-link">Products</a>
+            <a href="menu.html" class="footer-link">Menu</a>
             <a href="#story" class="footer-link">Our Story</a>
             <a href="#process" class="footer-link">Mission</a>
-            <a href="#locations" class="footer-link">Locations</a>
+            <a href="locations.html" class="footer-link">Locations</a>
             <a href="#franchise" class="footer-link" style="display:none">Franchise</a>
             <a href="#faq" class="footer-link">FAQ</a>
           </div>
@@ -1578,6 +1631,7 @@
   }
 
   render();
+  setTimeout(() => { if (!expanded) animateTo(1); }, 5000);
 </script>
 </body>
 </html>
