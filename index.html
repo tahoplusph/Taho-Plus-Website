@@ -361,7 +361,7 @@
       transform: translateX(-50%);
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 900;
-      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      font-size: clamp(1.4rem, 5vw, 4.5rem);
       line-height: 1;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -371,6 +371,14 @@
       opacity: 0;
       transition: opacity 0.6s ease;
       z-index: 5;
+    }
+    @media (max-width: 480px) {
+      #hero-tagline {
+        white-space: normal;
+        text-align: center;
+        width: 90%;
+        font-size: clamp(1.2rem, 6vw, 2rem);
+      }
     }
     #hero-tagline.visible { opacity: 1; }
 
@@ -419,6 +427,28 @@
     }
     @keyframes lineBreath {
       0%, 100% { opacity: 0.4; } 50% { opacity: 1; }
+    }
+
+    /* Scroll to proceed — shown after hero expands */
+    #scroll-proceed {
+      position: absolute; bottom: 2.25rem; left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    #scroll-proceed.visible { opacity: 1; }
+    #scroll-proceed-text {
+      font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: rgba(30,30,30,0.6);
+    }
+    #scroll-proceed-line {
+      width: 1px; height: 3rem;
+      background: linear-gradient(to bottom, rgba(30,30,30,0.5), transparent);
+      animation: lineBreath 2s ease-in-out infinite;
     }
 
     /* Content revealed after expansion */
@@ -935,7 +965,7 @@
   <img src="Logos/Taho%2B%20Logo%20no%20char.png" alt="TAHO+" id="nav-logo" />
   <div class="nav-links">
     <a href="menu.html" class="nav-link" id="nl-1">Menu</a>
-    <a href="#story" class="nav-link" id="nl-2">Our Story</a>
+    <a href="story.html" class="nav-link" id="nl-2">Our Story</a>
     <a href="locations.html" class="nav-link" id="nl-3">Locations</a>
     <a href="#franchise" class="nav-link" id="nl-4" style="display:none">Franchise</a>
   </div>
@@ -971,6 +1001,11 @@
       <div id="hint-line"></div>
     </div>
 
+    <!-- Scroll to proceed — visible after expansion -->
+    <div id="scroll-proceed">
+      <div id="scroll-proceed-text">Scroll to proceed</div>
+      <div id="scroll-proceed-line"></div>
+    </div>
 
   </section>
 
@@ -1364,7 +1399,7 @@
           <img src="Logos/Taho%2B%20Logo%20no%20char.png" alt="TAHO+" class="footer-logo" />
           <div class="footer-links">
             <a href="menu.html" class="footer-link">Menu</a>
-            <a href="#story" class="footer-link">Our Story</a>
+            <a href="story.html" class="footer-link">Our Story</a>
             <a href="#process" class="footer-link">Mission</a>
             <a href="locations.html" class="footer-link">Locations</a>
             <a href="#franchise" class="footer-link" style="display:none">Franchise</a>
@@ -1424,9 +1459,10 @@
   const mediaOverlay   = document.getElementById('media-overlay');
   const titleLeft      = document.getElementById('title-left');
   const titleRight     = document.getElementById('title-right');
-  const hintWrap     = document.getElementById('hint-wrap');
-  const heroTagline  = document.getElementById('hero-tagline');
-  const contentSec   = document.getElementById('content-section');
+  const hintWrap       = document.getElementById('hint-wrap');
+  const heroTagline    = document.getElementById('hero-tagline');
+  const scrollProceed  = document.getElementById('scroll-proceed');
+  const contentSec     = document.getElementById('content-section');
   const nav          = document.getElementById('nav');
   const navLogo      = document.getElementById('nav-logo');
   const navLinks     = document.querySelectorAll('.nav-link');
@@ -1546,9 +1582,11 @@
     if (expanded) {
       contentSec.classList.add('visible');
       heroTagline.classList.add('visible');
+      scrollProceed.classList.add('visible');
     } else {
       contentSec.classList.remove('visible');
       heroTagline.classList.remove('visible');
+      scrollProceed.classList.remove('visible');
     }
 
     // Nav
@@ -1619,6 +1657,7 @@
     // Nav frosted glass on scroll through content
     if (expanded && window.scrollY > 20) {
       nav.classList.add('scrolled');
+      scrollProceed.classList.remove('visible');
     }
   });
 
