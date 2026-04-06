@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TAHO+ — The Original Frozen Taho</title>
+  <link rel="icon" type="image/png" href="Logos/Taho%2B%20Boy.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ──────────────────────────────────────────── */
+    :root {
+      --cement:       #CDCDCE;
+      --cement-light: #D8D8DA;
+      --cement-dark:  #BEBEC0;
+      --stone:        #AEAEB2;
+      --stone-dark:   #808084;
+      --steel:        #2C3038;
+      --steel-mid:    #383C44;
+      --aluminum:     #A8ACB4;
+      --aluminum-bright: #CDD0D6;
+      --silver:       #B8BCC4;
+      --silver-light: #D4D8DE;
+      --text-body:    rgba(40,44,50,0.6);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: #C8C8CA;
+      /* Polished aluminum: diagonal reflection bands + specular highlight + brushed grain */
+      background-image:
+        /* Brushed metal grain — tight horizontal streaks */
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9%200.04' numOctaves='3' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)' opacity='0.07'/%3E%3C/svg%3E"),
+        /* Specular highlight — soft central glow */
+        radial-gradient(ellipse at 42% 38%, rgba(255,255,255,0.18) 0%, transparent 52%),
+        /* Main metallic banding — the key to polished aluminum */
+        linear-gradient(
+          112deg,
+          #A4A4A6  0%,
+          #C0C0C2  6%,
+          #D8D8DA  12%,
+          #EFEFEF  19%,
+          #FAFAFA  23%,
+          #F2F2F4  27%,
+          #DCDCDE  33%,
+          #C4C4C6  40%,
+          #BCBCBE  48%,
+          #C8C8CA  54%,
+          #D8D8DA  60%,
+          #EBEBED  67%,
+          #F6F6F8  72%,
+          #EEEEEF  76%,
+          #D8D8DA  82%,
+          #C0C0C2  89%,
+          #ABABAC  100%
+        );
+      background-size: 400px 400px, 100% 100%, 100% 100%;
+      background-attachment: fixed, fixed, fixed;
+      color: var(--steel);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── FINE SURFACE GRAIN ──────────────────────────────── */
+    .grain {
+      position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+      opacity: 0.038;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 140px;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 1.4rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    #nav.scrolled {
+      background: rgba(230,230,232,0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+    }
+
+    #nav-logo {
+      height: 38px; width: auto;
+      filter: brightness(0) invert(1);
+      transition: filter 0.4s ease;
+    }
+    #nav-logo.dark { filter: none; }
+
+    .nav-links { display: flex; gap: 2.25rem; align-items: center; }
+
+    .nav-link {
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(244,240,235,0.82); text-decoration: none;
+      transition: color 0.3s ease, opacity 0.2s ease;
+      position: relative;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; left: 0; bottom: -2px;
+      width: 0; height: 1px; background: currentColor;
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link:hover { opacity: 1; }
+    .nav-link.dark-link { color: var(--steel); }
+
+    .nav-cta {
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--steel); text-decoration: none;
+      padding: 0.55rem 1.4rem;
+      background: var(--cement-light);
+      border: 1px solid var(--stone);
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .nav-cta:hover { background: var(--cement); }
+    .nav-cta.light-cta {
+      background: var(--steel); color: var(--cement-light);
+      border-color: var(--steel);
+    }
+    .nav-cta.light-cta:hover { background: var(--steel-mid); }
+
+    /* ── SECTION COMMON ──────────────────────────────────── */
+    .section { padding: 7rem 2.5rem; position: relative; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--stone-dark); margin-bottom: 3.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .section-label::before {
+      content: ''; display: block;
+      width: 1.75rem; height: 1px; background: var(--stone);
+    }
+    .section-label.light { color: rgba(244,240,235,0.45); }
+    .section-label.light::before { background: rgba(244,240,235,0.2); }
+
+    .divider {
+      width: 100%; height: 1px;
+      background: rgba(100,100,104,0.3);
+    }
+    .divider.dark-div { background: rgba(200,208,220,0.1); }
+
+    /* Display heading — Bebas Neue */
+    .heading-xl {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 9vw, 8rem);
+      line-height: 0.92; letter-spacing: 0.04em;
+      color: var(--steel);
+    }
+    .heading-xl.light { color: var(--cement-light); }
+
+    .heading-lg {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      line-height: 0.92; letter-spacing: 0.04em;
+      color: var(--steel);
+    }
+    .heading-lg.light { color: var(--cement-light); }
+
+    /* Editorial heading — Cormorant */
+    .heading-editorial {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3.25rem);
+      font-weight: 300; line-height: 1.25;
+      font-style: italic; color: var(--steel);
+    }
+    .heading-editorial.light { color: var(--cement-light); }
+
+    .body-sm {
+      font-size: 0.9rem; line-height: 1.8;
+      color: var(--text-body); font-weight: 300;
+    }
+    .body-sm.light { color: rgba(244,240,235,0.55); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      text-decoration: none; padding: 0.85rem 2.2rem;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+      cursor: pointer; border: none; outline: none;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-dark {
+      background: var(--steel); color: var(--cement-light);
+      border: 1px solid var(--steel);
+    }
+    .btn-dark:hover { background: var(--steel-mid); }
+
+    .btn-outline-dark {
+      background: transparent; color: var(--steel);
+      border: 1px solid rgba(44,48,56,0.25);
+    }
+    .btn-outline-dark:hover { border-color: rgba(44,48,56,0.6); }
+
+    .btn-outline-light {
+      background: transparent; color: var(--cement-light);
+      border: 1px solid rgba(242,241,239,0.25);
+    }
+    .btn-outline-light:hover { border-color: rgba(242,241,239,0.6); }
+
+    .btn-light {
+      background: var(--cement-light); color: var(--steel);
+      border: 1px solid var(--cement-light);
+    }
+    .btn-light:hover { background: var(--cement); }
+
+    /* Arrow icon inline */
+    .arrow-icon {
+      width: 12px; height: 12px;
+      transition: transform 0.2s ease;
+    }
+    .btn:hover .arrow-icon { transform: translateX(3px); }
+
+    /* ── HERO SCROLL EXPANSION ───────────────────────────── */
+    #hero-section {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100dvh; overflow: hidden;
+    }
+
+    #bg-layer {
+      position: absolute; inset: 0; z-index: 0;
+      transition: opacity 0.08s linear;
+    }
+    #bg-image {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+    }
+    #bg-tint {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(24,20,16,0.45) 0%, rgba(24,20,16,0.2) 50%, rgba(24,20,16,0.55) 100%),
+        rgba(24,20,16,0.1);
+    }
+
+    #media-wrap {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      overflow: hidden;
+      /* clip-path animated by JS — plus sign → rectangle */
+      clip-path: url(#plus-clip);
+      /* drop-shadow follows the clip shape (plus outline at start, rect at end) */
+      filter:
+        drop-shadow(0 4px 20px rgba(24,22,20,0.32))
+        drop-shadow(0 16px 60px rgba(24,22,20,0.18));
+      will-change: width, height;
+    }
+
+    #hero-media {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+
+
+    /* Warm-to-neutral overlay on expanding media */
+    #media-overlay {
+      position: absolute; inset: 0; pointer-events: none;
+      background: rgba(24,22,20,0.42);
+      transition: opacity 0.1s linear;
+    }
+
+    /* Metallic sheen on media */
+    #media-sheen {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(
+        115deg,
+        transparent 30%,
+        rgba(212,208,202,0.06) 45%,
+        rgba(236,232,226,0.1) 50%,
+        rgba(212,208,202,0.06) 55%,
+        transparent 70%
+      );
+      background-size: 200% 100%;
+      animation: sheen 4s ease-in-out infinite;
+    }
+    @keyframes sheen {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Hero tagline — fades in on full expansion */
+    #hero-tagline {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      line-height: 1;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #1a1a1a;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      z-index: 5;
+    }
+    #hero-tagline.visible { opacity: 1; }
+
+    /* Title — above and below the plus */
+    #title-wrap {
+      position: absolute; inset: 0;
+      z-index: 10;
+      pointer-events: none; user-select: none;
+    }
+
+    .title-word {
+      position: absolute;
+      left: 50%;
+      white-space: nowrap;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 1; letter-spacing: 0.1em;
+      color: var(--cement-light);
+      text-shadow:
+        0 2px 20px rgba(24,22,20,0.4),
+        0 0 80px rgba(24,22,20,0.12);
+      display: block;
+    }
+
+
+
+    /* Scroll hint */
+    #hint-wrap {
+      position: absolute; bottom: 2.25rem; left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    #hint-text {
+      font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: rgba(244,240,235,0.85);
+    }
+    #hint-line {
+      width: 1px; height: 3.5rem;
+      background: linear-gradient(to bottom, rgba(244,240,235,0.8), transparent);
+      animation: lineBreath 2s ease-in-out infinite;
+    }
+    @keyframes lineBreath {
+      0%, 100% { opacity: 0.4; } 50% { opacity: 1; }
+    }
+
+    /* Content revealed after expansion */
+    #content-section {
+      opacity: 0; transition: opacity 0.7s ease;
+    }
+    #content-section.visible { opacity: 1; }
+
+    /* ── BRAND STATEMENT ─────────────────────────────────── */
+    #brand-statement {
+      background: var(--steel);
+      padding: 8rem 2.5rem;
+    }
+
+    .statement-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: end;
+    }
+
+    .statement-left .big-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 4vw, 3.75rem);
+      font-weight: 300; line-height: 1.18;
+      color: var(--cement-light);
+    }
+    .statement-left .big-quote em {
+      font-style: italic; color: rgba(244,240,235,0.55);
+    }
+
+    .statement-right {
+      padding-top: 1.5rem;
+    }
+
+    .arnibal-line {
+      width: 2.5rem; height: 1px;
+      background: var(--aluminum);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── PRODUCTS ────────────────────────────────────────── */
+    #products { background: transparent; }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: rgba(100,100,104,0.25);
+      border: 1px solid rgba(100,100,104,0.25);
+    }
+
+    .product-card {
+      background: rgba(255,255,255,0.28);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      position: relative; overflow: hidden;
+      cursor: pointer;
+    }
+
+    .product-card:hover .product-img { transform: scale(1.03); }
+    .product-card:hover .product-reveal { opacity: 1; }
+
+    .product-img-wrap {
+      position: relative; overflow: hidden;
+      aspect-ratio: 1/1;
+    }
+
+    .product-img {
+      width: 100%; height: 100%;
+      object-fit: contain; display: block;
+      transition: transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+
+    /* Metallic sheen on product hover */
+    .product-sheen {
+      position: absolute; inset: 0;
+      background: linear-gradient(115deg, transparent 40%, rgba(212,208,202,0.12) 50%, transparent 60%);
+      opacity: 0; transition: opacity 0.4s ease;
+    }
+    .product-card:hover .product-sheen { opacity: 1; }
+
+    .product-reveal {
+      position: absolute; inset: 0;
+      display: flex; align-items: flex-end;
+      background: linear-gradient(to top, rgba(24,22,20,0.6) 0%, transparent 55%);
+      opacity: 0; transition: opacity 0.4s ease;
+      padding: 1.5rem;
+    }
+
+    .product-meta { padding: 1.5rem; border-top: 1px solid rgba(100,100,104,0.25); }
+
+    .product-tag {
+      font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--stone-dark); margin-bottom: 0.4rem;
+    }
+
+    .product-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.75rem; letter-spacing: 0.05em;
+      color: var(--steel); margin-bottom: 0.25rem;
+    }
+
+    .product-desc {
+      font-size: 0.82rem; line-height: 1.6;
+      color: var(--text-body);
+    }
+
+    /* ── SWIRL STATION ──────────────────────────────────── */
+    .swirl-banner {
+      margin-top: 1.5px;
+      background: var(--steel);
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      min-height: 320px;
+    }
+
+    .swirl-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(212,208,202,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 20%, rgba(212,208,202,0.04) 0%, transparent 45%);
+      pointer-events: none;
+    }
+
+    .swirl-banner-left {
+      padding: 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .swirl-eyebrow {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--aluminum);
+      margin-bottom: 1.25rem;
+    }
+
+    .swirl-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 5vw, 4.5rem);
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      color: var(--cement-light);
+      margin-bottom: 1.25rem;
+    }
+
+    .swirl-desc {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: rgba(212,208,202,0.62);
+      max-width: 30ch;
+      margin-bottom: 2rem;
+    }
+
+    .swirl-weight-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(212,208,202,0.22);
+      border-radius: 2px;
+      padding: 0.55rem 1.1rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cement-light);
+      font-weight: 500;
+      width: fit-content;
+    }
+
+    .swirl-banner-right {
+      position: relative;
+      z-index: 1;
+      border-left: 1px solid rgba(212,208,202,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 3.5rem;
+      gap: 0;
+    }
+
+    .swirl-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .swirl-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(212,208,202,0.1);
+      transition: background 0.3s ease;
+    }
+    .swirl-step:first-child { border-top: 1px solid rgba(212,208,202,0.1); }
+
+    .swirl-step-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 2rem;
+      line-height: 1;
+      color: rgba(212,208,202,0.18);
+      flex-shrink: 0;
+      width: 2.5rem;
+    }
+
+    .swirl-step-body { flex: 1; }
+
+    .swirl-step-name {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cement-light);
+      margin-bottom: 0.3rem;
+    }
+
+    .swirl-step-detail {
+      font-size: 0.8rem;
+      line-height: 1.55;
+      color: rgba(212,208,202,0.5);
+    }
+
+    @media (max-width: 768px) {
+      .swirl-banner { grid-template-columns: 1fr; min-height: auto; }
+      .swirl-banner-left { padding: 2.5rem 1.5rem; }
+      .swirl-banner-right { padding: 1.5rem 1.5rem 2.5rem; border-left: none; border-top: 1px solid rgba(212,208,202,0.1); }
+    }
+
+    /* ── STORY ───────────────────────────────────────────── */
+    #story {
+      background: rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .story-image-wrap {
+      position: relative;
+    }
+    .story-image-wrap img {
+      width: 100%; display: block;
+      object-fit: cover;
+    }
+    .story-image-wrap img { position: relative; z-index: 1; }
+
+    .story-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 7rem; line-height: 1;
+      color: var(--aluminum); letter-spacing: 0.02em;
+      margin-bottom: -1rem;
+    }
+
+    /* ── PROCESS ─────────────────────────────────────────── */
+    #process { background: var(--steel); }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid rgba(200,208,220,0.1);
+    }
+
+    .process-step {
+      padding: 3rem 2.5rem;
+      border-right: 1px solid rgba(200,208,220,0.1);
+      position: relative;
+    }
+    .process-step:last-child { border-right: none; }
+
+    .step-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem; line-height: 1;
+      color: rgba(244,240,235,0.08);
+      letter-spacing: 0.04em;
+      margin-bottom: 1.5rem;
+    }
+
+    .step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 400;
+      color: var(--cement-light); margin-bottom: 0.75rem;
+    }
+
+    /* ── WHY DIFFERENT ───────────────────────────────────── */
+    #why { background: transparent; }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+    }
+
+    .why-card {
+      padding: 2.75rem 3rem;
+      border: 1px solid rgba(100,100,104,0.3);
+      border-right: none; border-bottom: none;
+      position: relative; overflow: hidden;
+      transition: background 0.3s ease;
+    }
+    .why-card:nth-child(2n) { border-right: 1px solid rgba(100,100,104,0.3); }
+    .why-card:nth-child(3),
+    .why-card:nth-child(4) { border-bottom: 1px solid rgba(100,100,104,0.3); }
+    .why-card:hover { background: rgba(40,44,50,0.06); }
+
+    /* Metallic accent stripe on hover */
+    .why-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 0; height: 1px;
+      background: linear-gradient(90deg, var(--aluminum), var(--silver-light));
+      transition: width 0.35s ease;
+    }
+    .why-card:hover::after { width: 100%; }
+
+    .why-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem; letter-spacing: 0.1em;
+      color: var(--stone-dark); margin-bottom: 1.25rem;
+    }
+
+    .why-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 400;
+      color: var(--steel); margin-bottom: 0.75rem;
+    }
+
+    /* ── LOCATIONS ───────────────────────────────────────── */
+    #locations { background: transparent; }
+
+    .locations-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      margin-bottom: 3rem;
+    }
+
+    .location-list { border-top: 1px solid rgba(100,100,104,0.3); }
+
+    .location-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      gap: 2rem;
+      align-items: center;
+      padding: 1.6rem 0;
+      border-bottom: 1px solid rgba(100,100,104,0.3);
+      transition: background 0.2s ease, padding-left 0.2s ease;
+      cursor: pointer;
+    }
+    .location-item:hover { background: rgba(40,44,50,0.05); padding-left: 1rem; }
+
+    .loc-num {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.15em; color: var(--stone-dark);
+      width: 2rem;
+    }
+
+    .loc-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem; font-weight: 400; color: var(--steel);
+    }
+
+    .loc-city {
+      font-size: 0.75rem; font-weight: 400;
+      letter-spacing: 0.1em; color: var(--stone-dark);
+      text-transform: uppercase;
+    }
+
+    .loc-arrow {
+      width: 16px; height: 16px;
+      color: var(--stone); transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .location-item:hover .loc-arrow { color: var(--steel); transform: translateX(4px); }
+
+    /* ── FRANCHISE ───────────────────────────────────────── */
+    #franchise { background: var(--steel); padding: 9rem 2.5rem; }
+
+    .franchise-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6rem; align-items: center;
+    }
+
+    /* ── FAQ ─────────────────────────────────────────────── */
+    #faq { background: transparent; }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(100,100,104,0.3);
+    }
+
+    .faq-question {
+      width: 100%; display: flex;
+      align-items: center; justify-content: space-between;
+      padding: 1.5rem 0;
+      background: none; border: none;
+      cursor: pointer; text-align: left;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 400;
+      color: var(--steel);
+      transition: color 0.2s ease;
+    }
+    .faq-question:hover { color: var(--aluminum); }
+
+    .faq-icon {
+      width: 18px; height: 18px;
+      flex-shrink: 0; color: var(--stone-dark);
+      transition: transform 0.3s ease;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+    }
+    .faq-item.open .faq-answer { max-height: 300px; }
+
+    .faq-answer-inner {
+      padding-bottom: 1.5rem;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    #footer {
+      background: var(--steel);
+      padding: 4rem 2.5rem 2.5rem;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      padding-bottom: 3.5rem;
+      border-bottom: 1px solid rgba(244,240,235,0.1);
+      margin-bottom: 2rem;
+    }
+
+    .footer-logo { height: 36px; filter: brightness(0) invert(1); opacity: 0.9; }
+
+    .footer-links {
+      display: flex; gap: 2.5rem; flex-wrap: wrap; justify-content: flex-end;
+    }
+
+    .footer-link {
+      font-size: 0.7rem; font-weight: 400;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(244,240,235,0.45); text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .footer-link:hover { color: rgba(244,240,235,0.9); }
+
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .footer-copy {
+      font-size: 0.68rem; letter-spacing: 0.1em;
+      color: rgba(244,240,235,0.25);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .section { padding: 5rem 1.5rem; }
+      .statement-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .products-grid { grid-template-columns: 1fr; }
+      .story-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .process-steps { grid-template-columns: 1fr; }
+      .process-step { border-right: none; border-bottom: 1px solid rgba(244,240,235,0.08); }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-card { border-right: 1px solid var(--cement-dark) !important; }
+      .franchise-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-links { justify-content: flex-start; }
+      .nav-links { display: none; }
+      .location-item { grid-template-columns: auto 1fr auto; }
+      .loc-city { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Hidden SVG for plus-sign clip path (morphs to rectangle on scroll) -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <defs>
+    <clipPath id="plus-clip" clipPathUnits="userSpaceOnUse">
+      <path id="plus-poly" d="M 0,0 Z" />
+    </clipPath>
+  </defs>
+</svg>
+
+<!-- Grain -->
+<div class="grain"></div>
+
+<!-- ── NAV ──────────────────────────────────────────────────── -->
+<nav id="nav">
+  <img src="Logos/Taho+ Logo no char.png" alt="TAHO+" id="nav-logo" />
+  <div class="nav-links">
+    <a href="#products" class="nav-link" id="nl-1">Products</a>
+    <a href="#story" class="nav-link" id="nl-2">Our Story</a>
+    <a href="#locations" class="nav-link" id="nl-3">Locations</a>
+    <a href="#franchise" class="nav-link" id="nl-4">Franchise</a>
+  </div>
+</nav>
+
+<!-- ── SCROLL HERO ───────────────────────────────────────────── -->
+<div id="scroll-hero">
+  <section id="hero-section">
+
+    <!-- Background — cement/stone texture -->
+    <div id="bg-layer">
+      <img src="Assets%20for%20TAHO%2B/TAHO%2B%20Website%20Background.png" alt="" id="bg-image" />
+      <div id="bg-tint"></div>
+    </div>
+
+    <!-- Expanding media — plus shape → full lineup reveal -->
+    <div id="media-wrap">
+      <img src="Assets%20for%20TAHO%2B/TAHO%2B%20Lineup.png" alt="TAHO+ Full Lineup" id="hero-media" />
+      <div id="media-overlay"></div>
+      <div id="media-sheen"></div>
+      <div id="hero-tagline">The Original Frozen Taho</div>
+    </div>
+
+    <!-- Title words split apart on scroll -->
+    <div id="title-wrap">
+      <span class="title-word" id="title-left">TAHO</span>
+      <span class="title-word" id="title-right">REIMAGINED</span>
+    </div>
+
+    <!-- Scroll hint -->
+    <div id="hint-wrap">
+      <div id="hint-text">Scroll to discover</div>
+      <div id="hint-line"></div>
+    </div>
+
+
+  </section>
+
+  <!-- ── REVEALED CONTENT ──────────────────────────────────────── -->
+  <div id="content-section">
+
+    <!-- 1. BRAND STATEMENT ──────────────────────────────────── -->
+    <section id="brand-statement">
+      <div class="statement-grid">
+        <div class="statement-left">
+          <div class="section-label light">The Original Frozen Taho</div>
+          <p class="big-quote">
+            Born from a love<br/>
+            for tradition.<br/>
+            <em>Driven by a passion</em><br/>
+            for innovation.
+          </p>
+        </div>
+        <div class="statement-right">
+          <div class="arnibal-line"></div>
+          <p class="body-sm light" style="margin-bottom:2rem;">
+            Inspired by the beloved Filipino street treat, we've reimagined this comforting classic into a refreshing frozen experience. Made for today's adventurous eaters who crave something nostalgic yet brand new.
+          </p>
+          <p class="body-sm light">
+            With each swirl of TAHO+, we bring people together through flavors that are both familiar and exciting — delivering moments of joy in every cup.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PRODUCTS ─────────────────────────────────────────── -->
+    <section class="section" id="products">
+      <div class="section-inner">
+        <div class="section-label">01 — Products</div>
+
+        <div style="margin-bottom:2.5rem;">
+          <h2 class="heading-xl" style="font-size:clamp(3rem,6vw,5.5rem);">Our Menu</h2>
+        </div>
+
+        <div class="products-grid">
+
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <img src="Products/Classic%20TAHO%2B.png" class="product-img" alt="Classic TAHO+" />
+              <div class="product-sheen"></div>
+              <div class="product-reveal">
+                <a href="#" class="btn btn-light" style="font-size:0.65rem;padding:0.6rem 1.4rem;">Order <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+              </div>
+            </div>
+            <div class="product-meta">
+              <div class="product-name">Classic TAHO+</div>
+              <p class="product-desc">The original. Taho soft serve drizzled with arnibal, topped with sago pearls and black tapioca. Where it all started.</p>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <img src="Products/Cookie%20TAHO%2B.png" class="product-img" alt="Cookie TAHO+" />
+              <div class="product-sheen"></div>
+              <div class="product-reveal">
+                <a href="#" class="btn btn-light" style="font-size:0.65rem;padding:0.6rem 1.4rem;">Order <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+              </div>
+            </div>
+            <div class="product-meta">
+              <div class="product-name">Cookie TAHO+</div>
+              <p class="product-desc">Cookies and cream meets frozen taho. Crushed Oreo crumbles over taho soft serve with black tapioca.</p>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <img src="Products/Golden%20Trio.png" class="product-img" alt="Golden Trio" />
+              <div class="product-sheen"></div>
+              <div class="product-reveal">
+                <a href="#" class="btn btn-light" style="font-size:0.65rem;padding:0.6rem 1.4rem;">Order <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+              </div>
+            </div>
+            <div class="product-meta">
+              <div class="product-name">Golden Trio</div>
+              <p class="product-desc">Honey-kissed taho soft serve crowned with premium mixed nuts and sago pearls. Sweet, nutty, and beautifully elevated.</p>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <img src="Products/Mango%20TAHO%2B.png" class="product-img" alt="Mango TAHO+" />
+              <div class="product-sheen"></div>
+              <div class="product-reveal">
+                <a href="#" class="btn btn-light" style="font-size:0.65rem;padding:0.6rem 1.4rem;">Order <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+              </div>
+            </div>
+            <div class="product-meta">
+              <div class="product-name">Mango TAHO+</div>
+              <p class="product-desc">Sun-ripened mango chunks and arnibal swirled through our taho soft serve with black tapioca and Lengua de Gato.</p>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <img src="Products/Mi%20Ultimo.png" class="product-img" alt="Mi Ultimo" />
+              <div class="product-sheen"></div>
+              <div class="product-reveal">
+                <a href="#" class="btn btn-light" style="font-size:0.65rem;padding:0.6rem 1.4rem;">Order <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+              </div>
+            </div>
+            <div class="product-meta">
+              <div class="product-name">Mi Ultimo</div>
+              <p class="product-desc">Our most loaded cup. Honey, mixed nuts, fresh fruits, and black pearls — the ultimate TAHO+ experience.</p>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <img src="Products/Strawberry%20TAHO%2B.png" class="product-img" alt="Strawberry TAHO+" />
+              <div class="product-sheen"></div>
+              <div class="product-reveal">
+                <a href="#" class="btn btn-light" style="font-size:0.65rem;padding:0.6rem 1.4rem;">Order <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+              </div>
+            </div>
+            <div class="product-meta">
+              <div class="product-name">Strawberry TAHO+</div>
+              <p class="product-desc">Vibrant strawberry taho soft serve with fresh strawberries, black tapioca pearls, and Lengua de Gato.</p>
+            </div>
+          </div>
+
+        </div><!-- /products-grid -->
+
+        <!-- Self-Serve Swirl Station -->
+        <div class="swirl-banner">
+          <div class="swirl-banner-left">
+            <div class="swirl-eyebrow">Only available in select stores</div>
+            <div class="swirl-title">Swirl<br>Your Own!</div>
+            <p class="swirl-desc">Take control. Walk up to our self-serve bar, swirl your own taho base, load up on toppings, and pay by weight. No two cups are the same.</p>
+            <div class="swirl-weight-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12l1 6H5L6 2z"/><path d="M5 8l1.5 13h11L19 8"/><path d="M9 12h6"/></svg>
+              Priced by weight
+            </div>
+          </div>
+
+          <div class="swirl-banner-right">
+            <div class="swirl-steps">
+              <div class="swirl-step">
+                <div class="swirl-step-num">01</div>
+                <div class="swirl-step-body">
+                  <div class="swirl-step-name">Choose Your Base</div>
+                  <div class="swirl-step-detail">Pick from our classic taho soft serve or any available seasonal flavors.</div>
+                </div>
+              </div>
+              <div class="swirl-step">
+                <div class="swirl-step-num">02</div>
+                <div class="swirl-step-body">
+                  <div class="swirl-step-name">Swirl It Yourself</div>
+                  <div class="swirl-step-detail">Step up to the machine and swirl your own cup — as much or as little as you like.</div>
+                </div>
+              </div>
+              <div class="swirl-step">
+                <div class="swirl-step-num">03</div>
+                <div class="swirl-step-body">
+                  <div class="swirl-step-name">Load Your Toppings</div>
+                  <div class="swirl-step-detail">Arnibal, sago, black tapioca, fresh fruits, nuts, cookies, and more from our toppings bar.</div>
+                </div>
+              </div>
+              <div class="swirl-step">
+                <div class="swirl-step-num">04</div>
+                <div class="swirl-step-body">
+                  <div class="swirl-step-name">Weigh &amp; Pay</div>
+                  <div class="swirl-step-detail">Your cup goes on the scale. You pay for exactly what you built — nothing more.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /swirl-banner -->
+
+      </div>
+    </section>
+
+    <!-- 3. STORY ─────────────────────────────────────────────── -->
+    <section class="section" id="story" style="background:rgba(0,0,0,0.05);">
+      <div class="section-inner">
+        <div class="section-label">02 — Our Story</div>
+        <div class="story-grid">
+          <div>
+            <img src="Logos/Taho%2B%20Logo%20no%20char.png" alt="TAHO+" style="height:90px;width:auto;margin-bottom:2rem;display:block;" />
+            <h2 class="heading-editorial" style="margin-bottom:2rem;">
+              A brand born from a love for tradition and a passion for innovation.
+            </h2>
+            <div class="divider" style="margin-bottom:2rem;"></div>
+            <p class="body-sm" style="margin-bottom:1.25rem;">
+              Inspired by the beloved Filipino street treat, we've reimagined taho into a refreshing frozen experience. Whether it's your first time tasting taho or a return to a childhood favorite — we deliver moments of joy in every cup.
+            </p>
+            <p class="body-sm" style="margin-bottom:2.5rem;">
+              TAHO+ is made for today's adventurous eaters. People who crave something nostalgic yet brand new. Something familiar, but exciting.
+            </p>
+          </div>
+
+          <div class="story-image-wrap">
+            <img src="Assets%20for%20TAHO%2B/The%20Original%20Frozen%20Taho.png" alt="The Original Frozen Taho" style="aspect-ratio:4/5;object-fit:contain;object-position:center;" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. PROCESS ───────────────────────────────────────────── -->
+    <section class="section" id="process" style="background:var(--steel);">
+      <div class="section-inner">
+        <div class="section-label light">03 — Mission &amp; Vision</div>
+        <h2 class="heading-xl light" style="font-size:clamp(2.8rem,5vw,4.5rem);margin-bottom:4rem;">
+          What We Stand For
+        </h2>
+
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="step-number">01</div>
+            <div class="step-title">Our Mission</div>
+            <p class="body-sm light">To bring the joy of traditional taho to modern consumers with a convenient, delicious frozen twist — celebrating culture, promoting wellness, and delivering comfort and nostalgia to people of all ages.</p>
+          </div>
+          <div class="process-step">
+            <div class="step-number">02</div>
+            <div class="step-title">Our Vision</div>
+            <p class="body-sm light">To be the first and most trusted brand bringing the unique experience of Frozen Taho to the local market — blending traditional Pinoy flavors with a modern twist that all ages in the Philippines can enjoy.</p>
+          </div>
+          <div class="process-step">
+            <div class="step-number">03</div>
+            <div class="step-title">Our Product</div>
+            <p class="body-sm light">Our menu centers around our signature Frozen Taho — a creamy soft-serve treat inspired by the classic taho experience, serving up the smooth taste of taho with a modern frozen twist.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. WHY DIFFERENT ─────────────────────────────────────── -->
+    <section class="section" id="why" style="padding-top:6rem;padding-bottom:6rem;">
+      <div class="section-inner">
+        <div class="section-label">04 — Why TAHO+</div>
+        <h2 class="heading-xl" style="font-size:clamp(2.8rem,5vw,4.5rem);margin-bottom:3.5rem;">
+          What Makes It Different
+        </h2>
+
+        <div class="why-grid">
+          <div class="why-card">
+            <div class="why-num">01</div>
+            <div class="why-title">Rooted in Culture</div>
+            <p class="body-sm">TAHO+ celebrates the heritage of a Filipino classic. Every cup carries the memory of the morning magtataho — reimagined for a new generation.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-num">02</div>
+            <div class="why-title">High-Quality Soft Serve</div>
+            <p class="body-sm">Our Frozen Taho is a creamy, taho-based soft serve — smooth, satisfying, and crafted with quality ingredients that honor the original.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-num">03</div>
+            <div class="why-title">For Everyone</div>
+            <p class="body-sm">Whether you're tasting taho for the first time or returning to a childhood favorite, TAHO+ delivers moments of comfort and nostalgia for all ages.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-num">04</div>
+            <div class="why-title">Nostalgic Yet New</div>
+            <p class="body-sm">Traditional Pinoy flavors. A modern frozen twist. TAHO+ brings together the familiar and the exciting — in a single, convenient cup.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. LOCATIONS ─────────────────────────────────────────── -->
+    <section class="section" id="locations">
+      <div class="section-inner">
+        <div class="locations-header">
+          <div>
+            <div class="section-label">05 — Find Us</div>
+            <h2 class="heading-xl" style="font-size:clamp(2.8rem,5vw,4.5rem);">Locations</h2>
+          </div>
+          <a href="#" class="btn btn-outline-dark" style="flex-shrink:0;align-self:flex-end;">
+            View Map
+            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+
+        <div class="location-list">
+          <div class="location-item">
+            <span class="loc-num">01</span>
+            <span class="loc-name">SM Megamall</span>
+            <span class="loc-city">Building B, Lower Ground</span>
+            <svg class="loc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+          <div class="location-item">
+            <span class="loc-num">02</span>
+            <span class="loc-name">SM City Fairview</span>
+            <span class="loc-city">Main Building, 2nd Level, Near Cinema</span>
+            <svg class="loc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+          <div class="location-item">
+            <span class="loc-num">03</span>
+            <span class="loc-name">SM North EDSA</span>
+            <span class="loc-city">Main Building, Lower Ground &nbsp;·&nbsp; <em style="font-style:normal;font-weight:600;color:var(--steel);">Swirl Your Own!</em></span>
+            <svg class="loc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. FRANCHISE ─────────────────────────────────────────── -->
+    <section id="franchise">
+      <div class="franchise-inner">
+        <div>
+          <div class="section-label light">06 — Grow With Us</div>
+          <h2 class="heading-xl light" style="font-size:clamp(3rem,5.5vw,5rem);margin-bottom:2rem;">
+            Bring TAHO+<br/>To Your City
+          </h2>
+          <p class="body-sm light" style="margin-bottom:3rem;max-width:440px;">
+            We're bringing Frozen Taho to every corner of the Philippines. If you believe in celebrating Filipino culture through food — and want to be part of the first and most trusted Frozen Taho brand — we'd like to hear from you.
+          </p>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+            <a href="#" class="btn btn-light">
+              Franchise Inquiry
+              <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="#" class="btn btn-outline-light">Download Deck</a>
+          </div>
+        </div>
+        <div style="border:1px solid rgba(244,240,235,0.1);padding:3rem;">
+          <p class="body-sm light" style="font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:2rem;color:rgba(244,240,235,0.35);">What's included</p>
+          <div style="display:flex;flex-direction:column;gap:1.25rem;">
+            <div style="display:flex;gap:1rem;align-items:start;border-bottom:1px solid rgba(244,240,235,0.08);padding-bottom:1.25rem;">
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--aluminum);flex-shrink:0;">—</span>
+              <span class="body-sm light">Full brand license and operations manual</span>
+            </div>
+            <div style="display:flex;gap:1rem;align-items:start;border-bottom:1px solid rgba(244,240,235,0.08);padding-bottom:1.25rem;">
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--aluminum);flex-shrink:0;">—</span>
+              <span class="body-sm light">Equipment sourcing and kiosk design support</span>
+            </div>
+            <div style="display:flex;gap:1rem;align-items:start;border-bottom:1px solid rgba(244,240,235,0.08);padding-bottom:1.25rem;">
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--aluminum);flex-shrink:0;">—</span>
+              <span class="body-sm light">Ongoing product development and quality support</span>
+            </div>
+            <div style="display:flex;gap:1rem;align-items:start;">
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--aluminum);flex-shrink:0;">—</span>
+              <span class="body-sm light">Marketing templates and launch support</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. FAQ ───────────────────────────────────────────────── -->
+    <section class="section" id="faq">
+      <div class="section-inner" style="max-width:760px;">
+        <div class="section-label">07 — FAQ</div>
+        <h2 class="heading-xl" style="font-size:clamp(2.5rem,4.5vw,4rem);margin-bottom:3.5rem;">Questions</h2>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            What exactly is frozen taho?
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner"><p class="body-sm">TAHO+ takes the beloved Filipino street treat — silken tofu, sago pearls, and arnibal syrup — and reimagines it as a creamy frozen soft serve. It's a refreshing, modern experience rooted in a flavor every Filipino already knows and loves.</p></div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Is TAHO+ a healthier dessert option?
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner"><p class="body-sm">Our Frozen Taho is made with a taho-based soft serve that promotes wellness without sacrificing taste. It's a lighter, plant-based alternative to traditional frozen desserts — and a delicious one at that.</p></div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Where can I find TAHO+?
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner"><p class="body-sm">We currently operate kiosks across Metro Manila. Our goal is to be the most trusted Frozen Taho brand in the local market, with more locations opening throughout 2025. Check our Locations section for the nearest store.</p></div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            How do I apply for a franchise?
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner"><p class="body-sm">Visit our Franchise section and submit an inquiry. We're looking for partners who share our vision of bringing traditional Pinoy flavors to modern consumers. Our team will follow up within 5–7 business days.</p></div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Does TAHO+ contain allergens?
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner"><p class="body-sm">Our base product contains soy (tofu). Certain seasonal flavors may include additional ingredients — all clearly labeled at our kiosks. Please let our staff know if you have any dietary concerns and we'll be happy to assist.</p></div></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 9. FOOTER ────────────────────────────────────────────── -->
+    <footer id="footer">
+      <div style="max-width:1200px;margin:0 auto;">
+        <div class="footer-top">
+          <img src="Logos/Taho+ Logo no char.png" alt="TAHO+" class="footer-logo" />
+          <div class="footer-links">
+            <a href="#products" class="footer-link">Products</a>
+            <a href="#story" class="footer-link">Our Story</a>
+            <a href="#process" class="footer-link">Mission</a>
+            <a href="#locations" class="footer-link">Locations</a>
+            <a href="#franchise" class="footer-link">Franchise</a>
+            <a href="#faq" class="footer-link">FAQ</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span class="footer-copy">© 2025 TAHO+ — The Original Frozen Taho. All rights reserved.</span>
+          <span class="footer-copy">Manila, Philippines</span>
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- /content-section -->
+</div><!-- /scroll-hero -->
+
+<!-- ── JS ─────────────────────────────────────────────────────── -->
+<script>
+  // ── SCROLL HERO STATE ──────────────────────────────────────
+  let progress = 0;
+  let targetProgress = 0;
+  let expanded = false;
+  let touchStartY = 0;
+  let rafId = null;
+
+  function animateTo(target) {
+    targetProgress = target;
+    if (!rafId) rafLoop();
+  }
+
+  function rafLoop() {
+    const diff = targetProgress - progress;
+    if (Math.abs(diff) < 0.001) {
+      progress = targetProgress;
+      render();
+      if (progress >= 1) { expanded = true; render(); }
+      rafId = null;
+      return;
+    }
+    progress += diff * 0.1;
+    if (progress >= 0.999 && targetProgress === 1) {
+      progress = 1;
+      expanded = true;
+    }
+    render();
+    rafId = requestAnimationFrame(rafLoop);
+  }
+
+  const bgLayer      = document.getElementById('bg-layer');
+  const mediaWrap    = document.getElementById('media-wrap');
+  const plusPoly     = document.getElementById('plus-poly');
+  const mediaOverlay   = document.getElementById('media-overlay');
+  const titleLeft      = document.getElementById('title-left');
+  const titleRight     = document.getElementById('title-right');
+  const hintWrap     = document.getElementById('hint-wrap');
+  const heroTagline  = document.getElementById('hero-tagline');
+  const contentSec   = document.getElementById('content-section');
+  const nav          = document.getElementById('nav');
+  const navLogo      = document.getElementById('nav-logo');
+  const navLinks     = document.querySelectorAll('.nav-link');
+
+  // Generates SVG path d-string for a plus sign with rounded inner concave corners,
+  // morphing smoothly to a rounded rectangle as t → 1.
+  function updatePlusClip(W, H, t) {
+    const arm  = 0.38;
+    const ax1p = W * (1 - arm) / 2;
+    const ax2p = W - ax1p;
+    const ay1p = H * (1 - arm) / 2;
+    const ay2p = H - ay1p;
+
+    // Interpolate arm edges toward the full rectangle
+    const ax1 = ax1p * (1 - t);
+    const ax2 = ax2p + (W - ax2p) * t;
+    const ay1 = ay1p * (1 - t);
+    const ay2 = ay2p + (H - ay2p) * t;
+
+    // Inner concave rounding: prominent at start, dissolves as plus opens
+    const ri = Math.min(ax1p, ay1p) * 0.52 * Math.max(1 - t * 1.5, 0);
+    // Outer arm-tip rounding: moderate at start, lands at 4px for rect
+    const ro = Math.min(ax1p, ay1p) * 0.22 * (1 - t) + 4 * t;
+
+    const f = v => Math.round(v * 10) / 10; // tidy decimals
+
+    // At full expansion just output a clean rounded rect
+    if (t >= 0.99) {
+      const r = 4;
+      plusPoly.setAttribute('d',
+        `M ${r},0 L ${f(W-r)},0 Q ${f(W)},0 ${f(W)},${r}` +
+        ` L ${f(W)},${f(H-r)} Q ${f(W)},${f(H)} ${f(W-r)},${f(H)}` +
+        ` L ${r},${f(H)} Q 0,${f(H)} 0,${f(H-r)} L 0,${r} Q 0,0 ${r},0 Z`
+      );
+      return;
+    }
+
+    // Plus path: 4 outer arm-tip corners (ro, convex) +
+    //            4 inner junction corners (ri, concave)
+    // Clockwise from top-left of top arm.
+    plusPoly.setAttribute('d', [
+      `M ${f(ax1+ro)},0`,
+      `L ${f(ax2-ro)},0`,
+      `Q ${f(ax2)},0 ${f(ax2)},${f(ro)}`,          // outer top-right of top arm
+      `L ${f(ax2)},${f(ay1-ri)}`,
+      `Q ${f(ax2)},${f(ay1)} ${f(ax2+ri)},${f(ay1)}`, // inner concave ↗
+      `L ${f(W-ro)},${f(ay1)}`,
+      `Q ${f(W)},${f(ay1)} ${f(W)},${f(ay1+ro)}`,   // outer top of right arm
+      `L ${f(W)},${f(ay2-ro)}`,
+      `Q ${f(W)},${f(ay2)} ${f(W-ro)},${f(ay2)}`,   // outer bottom of right arm
+      `L ${f(ax2+ri)},${f(ay2)}`,
+      `Q ${f(ax2)},${f(ay2)} ${f(ax2)},${f(ay2+ri)}`, // inner concave ↘
+      `L ${f(ax2)},${f(H-ro)}`,
+      `Q ${f(ax2)},${f(H)} ${f(ax2-ro)},${f(H)}`,   // outer bottom-right of bottom arm
+      `L ${f(ax1+ro)},${f(H)}`,
+      `Q ${f(ax1)},${f(H)} ${f(ax1)},${f(H-ro)}`,   // outer bottom-left of bottom arm
+      `L ${f(ax1)},${f(ay2+ri)}`,
+      `Q ${f(ax1)},${f(ay2)} ${f(ax1-ri)},${f(ay2)}`, // inner concave ↙
+      `L ${f(ro)},${f(ay2)}`,
+      `Q 0,${f(ay2)} 0,${f(ay2-ro)}`,               // outer bottom of left arm
+      `L 0,${f(ay1+ro)}`,
+      `Q 0,${f(ay1)} ${f(ro)},${f(ay1)}`,            // outer top of left arm
+      `L ${f(ax1-ri)},${f(ay1)}`,
+      `Q ${f(ax1)},${f(ay1)} ${f(ax1)},${f(ay1-ri)}`, // inner concave ↖
+      `L ${f(ax1)},${f(ro)}`,
+      `Q ${f(ax1)},0 ${f(ax1+ro)},0`,               // outer top-left of top arm
+      `Z`,
+    ].join(' '));
+  }
+
+  function render() {
+    const mobile = window.innerWidth < 768;
+
+    // Start square (plus sign), lerp to full viewport — works on any screen size
+    const startW = mobile ? 200 : 260;
+    const startH = mobile ? 200 : 260;
+    const endW   = window.innerWidth  * 0.97;
+    const endH   = window.innerHeight * 0.9;
+
+    const W = startW + (endW - startW) * progress;
+    const H = startH + (endH - startH) * progress;
+    mediaWrap.style.width  = W + 'px';
+    mediaWrap.style.height = H + 'px';
+
+    // Plus sign → rectangle clip-path morph (rounded inner corners)
+    updatePlusClip(W, H, progress);
+
+
+    // Title words: track edges of plus, exit sideways as it expands
+    const centerY = window.innerHeight / 2;
+    const halfH   = H / 2;
+    const gap = 14;
+    const tx = progress * (mobile ? 32 : 42); // vw — how far they drift sideways
+
+    titleLeft.style.top     = (centerY - halfH - gap) + 'px';
+    titleRight.style.top    = (centerY + halfH + gap) + 'px';
+    // TAHO exits left, REIMAGINED exits right — same axis they'll re-enter from
+    titleLeft.style.transform  = `translateX(calc(-50% - ${tx}vw)) translateY(-100%)`;
+    titleRight.style.transform = `translateX(calc(-50% + ${tx}vw))`;
+    const titleOpacity = Math.max(1 - progress * 2.6, 0);
+    titleLeft.style.opacity  = titleOpacity;
+    titleRight.style.opacity = titleOpacity;
+
+
+    // Media overlay: starts subtle, clears fully as it expands
+    mediaOverlay.style.opacity = Math.max(0.22 - progress * 0.22, 0);
+
+    // Old-world bg fades
+    bgLayer.style.opacity = Math.max(1 - progress * 1.15, 0);
+
+
+    // Hint fades
+    hintWrap.style.opacity = Math.max(1 - progress * 4, 0);
+
+
+    // Content
+    if (expanded) {
+      contentSec.classList.add('visible');
+      heroTagline.classList.add('visible');
+    } else {
+      contentSec.classList.remove('visible');
+      heroTagline.classList.remove('visible');
+    }
+
+    // Nav
+    if (expanded) {
+      nav.classList.add('scrolled');
+      navLogo.classList.add('dark');
+      navLinks.forEach(l => l.classList.add('dark-link'));
+    } else {
+      if (progress < 0.05) {
+        nav.classList.remove('scrolled');
+        navLogo.classList.remove('dark');
+        navLinks.forEach(l => l.classList.remove('dark-link'));
+      }
+    }
+  }
+
+  window.addEventListener('wheel', (e) => {
+    if (expanded && e.deltaY < 0 && window.scrollY <= 5) {
+      expanded = false;
+      animateTo(0);
+      e.preventDefault();
+    } else if (!expanded) {
+      e.preventDefault();
+      if (e.deltaY > 0) animateTo(1);
+    }
+  }, { passive: false });
+
+  window.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    if (!touchStartY) return;
+    const deltaY = touchStartY - e.touches[0].clientY;
+    if (expanded && deltaY < -20 && window.scrollY <= 5) {
+      expanded = false;
+      animateTo(0);
+      e.preventDefault();
+    } else if (!expanded) {
+      e.preventDefault();
+      if (deltaY > 10) animateTo(1);
+      else if (deltaY < -10) animateTo(0);
+    }
+  }, { passive: false });
+
+  window.addEventListener('touchend', () => { touchStartY = 0; });
+
+  window.addEventListener('scroll', () => {
+    if (!expanded) window.scrollTo(0, 0);
+    // Nav frosted glass on scroll through content
+    if (expanded && window.scrollY > 20) {
+      nav.classList.add('scrolled');
+    }
+  });
+
+  // ── FAQ ACCORDION ──────────────────────────────────────────
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  render();
+</script>
+</body>
+</html>
