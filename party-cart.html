@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Party Cart — TAHO+ | Frozen Taho for Your Event</title>
+  <meta name="description" content="Book the TAHO+ Party Cart for your next event. 30% OFF all packages. Includes soft serve machine, service crew, and up to 100 cups of The Original Frozen Taho. Call 09175966424." />
+  <link rel="canonical" href="https://www.tahoplusph.com/party-cart" />
+  <link rel="icon" type="image/png" href="Logos/Taho%2B%20Boy.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --cement:       #CDCDCE;
+      --cement-light: #D8D8DA;
+      --stone:        #AEAEB2;
+      --stone-dark:   #808084;
+      --steel:        #2C3038;
+      --steel-mid:    #383C44;
+      --aluminum:     #A8ACB4;
+      --text-body:    rgba(40,44,50,0.6);
+      --promo:        #E8B84B;
+      --promo-dark:   #C99A2E;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: #C8C8CA;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9%200.04' numOctaves='3' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)' opacity='0.07'/%3E%3C/svg%3E"),
+        radial-gradient(ellipse at 42% 38%, rgba(255,255,255,0.18) 0%, transparent 52%),
+        linear-gradient(112deg,#A4A4A6 0%,#C0C0C2 6%,#D8D8DA 12%,#EFEFEF 19%,#FAFAFA 23%,#F2F2F4 27%,#DCDCDE 33%,#C4C4C6 40%,#BCBCBE 48%,#C8C8CA 54%,#D8D8DA 60%,#EBEBED 67%,#F6F6F8 72%,#EEEEEF 76%,#D8D8DA 82%,#C0C0C2 89%,#ABABAC 100%);
+      background-size: 400px 400px, 100% 100%, 100% 100%;
+      background-attachment: fixed, fixed, fixed;
+      color: var(--steel);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .grain {
+      position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.038;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 140px;
+    }
+
+    /* NAV */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 1.4rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(230,230,232,0.72);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+    }
+    #nav-logo { height: 38px; width: auto; }
+    .nav-links { display: flex; gap: 2.25rem; align-items: center; }
+    .nav-link {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--steel); text-decoration: none; position: relative;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; left: 0; bottom: -2px;
+      width: 0; height: 1px; background: currentColor; transition: width 0.25s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link.active::after { width: 100%; }
+
+    /* PROMO BANNER */
+    .promo-banner {
+      background: var(--promo);
+      padding: 0.6rem 2.5rem;
+      text-align: center;
+      margin-top: 72px;
+    }
+    .promo-banner span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem; letter-spacing: 0.18em;
+      color: var(--steel);
+    }
+
+    /* HERO */
+    .hero {
+      max-width: 1200px; margin: 0 auto;
+      padding: 5rem 2.5rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    @media (max-width: 768px) { .hero { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.5rem 3rem; } }
+
+    .hero-left {}
+    .hero-eyebrow {
+      font-size: 0.65rem; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--stone-dark); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-eyebrow::before { content: ''; display: block; width: 1.75rem; height: 1px; background: var(--stone); }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4.5rem, 11vw, 9.5rem);
+      line-height: 0.88; letter-spacing: 0.04em;
+      color: var(--steel); margin-bottom: 2rem;
+    }
+
+    .discount-badge {
+      display: inline-flex; align-items: baseline; gap: 0.4rem;
+      background: var(--promo);
+      padding: 0.75rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .discount-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem; line-height: 1; letter-spacing: 0.04em;
+      color: var(--steel);
+    }
+    .discount-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem; letter-spacing: 0.1em;
+      color: var(--steel);
+    }
+
+    .hero-desc {
+      font-size: 0.9rem; line-height: 1.8; color: var(--text-body);
+      font-weight: 300; max-width: 420px; margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+      text-decoration: none; padding: 0.95rem 2.4rem;
+      background: var(--steel); color: var(--cement-light);
+      border: 1px solid var(--steel);
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .hero-cta:hover { background: var(--steel-mid); transform: translateY(-1px); }
+    .hero-cta svg { width: 12px; height: 12px; transition: transform 0.2s ease; }
+    .hero-cta:hover svg { transform: translateX(3px); }
+
+    .hero-right {
+      position: relative;
+    }
+    .hero-img-wrap {
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.5);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(44,48,56,0.18), 0 4px 16px rgba(44,48,56,0.1);
+    }
+    .hero-img-wrap img { width: 100%; display: block; }
+    .hero-img-sheen {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.04) 45%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 55%, transparent 70%);
+      background-size: 200% 100%;
+      animation: sheen 5s ease-in-out infinite;
+    }
+    @keyframes sheen { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    .gma-badge {
+      position: absolute; top: -1rem; right: -1rem;
+      background: var(--steel); color: var(--cement-light);
+      padding: 0.6rem 1rem;
+      font-size: 0.58rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* DIVIDER */
+    .divider { height: 1px; background: rgba(100,100,104,0.25); max-width: 1200px; margin: 0 auto; }
+
+    /* PACKAGES */
+    .packages-section { padding: 6rem 2.5rem; }
+    .packages-inner { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.65rem; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--stone-dark); margin-bottom: 3.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .section-label::before { content: ''; display: block; width: 1.75rem; height: 1px; background: var(--stone); }
+    .section-label.light { color: rgba(244,240,235,0.45); }
+    .section-label.light::before { background: rgba(244,240,235,0.2); }
+
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 768px) { .packages-grid { grid-template-columns: 1fr; } }
+
+    .pkg-card {
+      background: rgba(220,220,222,0.45);
+      border: 1px solid rgba(255,255,255,0.5);
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .pkg-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(44,48,56,0.12), 0 2px 8px rgba(44,48,56,0.08);
+    }
+    .pkg-card.featured {
+      background: var(--steel);
+      border-color: var(--steel);
+    }
+    .pkg-card.featured::before {
+      content: 'BEST VALUE';
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.7rem; letter-spacing: 0.14em;
+      background: var(--promo); color: var(--steel);
+      padding: 0.3rem 0.7rem;
+    }
+
+    .pkg-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.8rem; letter-spacing: 0.14em;
+      color: var(--stone-dark); margin-bottom: 0.5rem;
+    }
+    .pkg-card.featured .pkg-num { color: rgba(244,240,235,0.35); }
+
+    .pkg-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem; letter-spacing: 0.05em;
+      color: var(--steel); line-height: 1; margin-bottom: 0.5rem;
+    }
+    .pkg-card.featured .pkg-name { color: var(--cement-light); }
+
+    .pkg-cups {
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--stone-dark); margin-bottom: 1.75rem;
+    }
+    .pkg-card.featured .pkg-cups { color: rgba(244,240,235,0.4); }
+
+    .pkg-price-wrap { margin-bottom: 2rem; }
+    .pkg-price-original {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem; font-weight: 600; letter-spacing: 0.06em;
+      color: var(--stone-dark); text-decoration: line-through;
+      margin-bottom: 0.2rem;
+    }
+    .pkg-card.featured .pkg-price-original { color: rgba(244,240,235,0.3); }
+
+    .pkg-price-now {
+      display: flex; align-items: baseline; gap: 0.3rem;
+    }
+    .pkg-price-label {
+      font-size: 0.6rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--promo-dark);
+    }
+    .pkg-card.featured .pkg-price-label { color: var(--promo); }
+    .pkg-price-amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem; letter-spacing: 0.03em; line-height: 1;
+      color: var(--steel);
+    }
+    .pkg-card.featured .pkg-price-amount { color: var(--promo); }
+
+    .pkg-divider { height: 1px; background: rgba(100,100,104,0.2); margin-bottom: 1.5rem; }
+    .pkg-card.featured .pkg-divider { background: rgba(244,240,235,0.1); }
+
+    .pkg-items { display: flex; flex-direction: column; gap: 0.6rem; }
+    .pkg-item {
+      display: flex; align-items: start; gap: 0.75rem;
+      font-size: 0.82rem; line-height: 1.5; color: var(--text-body); font-weight: 300;
+    }
+    .pkg-card.featured .pkg-item { color: rgba(244,240,235,0.55); }
+    .pkg-item-dot {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--stone); flex-shrink: 0; margin-top: 6px;
+    }
+    .pkg-card.featured .pkg-item-dot { background: var(--promo); }
+    .pkg-item strong { font-weight: 500; color: var(--steel); }
+    .pkg-card.featured .pkg-item strong { color: rgba(244,240,235,0.85); }
+
+    .pkg-free-tag {
+      display: inline-block; margin-top: 1.5rem;
+      font-size: 0.6rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--steel); background: var(--promo);
+      padding: 0.3rem 0.75rem;
+    }
+    .pkg-card.featured .pkg-free-tag { background: rgba(232,184,75,0.2); color: var(--promo); }
+
+    /* EXCLUSIVE TOPPINGS */
+    .toppings-section { background: var(--steel); padding: 6rem 2.5rem; }
+    .toppings-inner { max-width: 1200px; margin: 0 auto; }
+
+    .toppings-grid {
+      display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem;
+    }
+    .topping-pill {
+      font-size: 0.72rem; font-weight: 400; letter-spacing: 0.1em;
+      color: rgba(244,240,235,0.6);
+      border: 1px solid rgba(244,240,235,0.12);
+      padding: 0.45rem 1rem;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .topping-pill:hover { background: rgba(244,240,235,0.06); color: rgba(244,240,235,0.9); }
+
+    /* FLAVORS */
+    .flavors-section { padding: 6rem 2.5rem; }
+    .flavors-inner { max-width: 1200px; margin: 0 auto; }
+    .flavors-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    @media (max-width: 900px) { .flavors-grid { grid-template-columns: repeat(3,1fr); } }
+    @media (max-width: 560px) { .flavors-grid { grid-template-columns: repeat(2,1fr); } }
+
+    .flavor-card {
+      background: rgba(220,220,222,0.35);
+      border: 1px solid rgba(255,255,255,0.45);
+      padding: 1.5rem 1.25rem;
+      transition: transform 0.25s ease;
+    }
+    .flavor-card:hover { transform: translateY(-3px); }
+    .flavor-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem; letter-spacing: 0.06em; color: var(--steel);
+      margin-bottom: 0.75rem; line-height: 1.1;
+    }
+    .flavor-items { display: flex; flex-direction: column; gap: 0.3rem; }
+    .flavor-item {
+      font-size: 0.7rem; line-height: 1.5; color: var(--text-body); font-weight: 300;
+      display: flex; align-items: start; gap: 0.5rem;
+    }
+    .flavor-item::before { content: '—'; flex-shrink: 0; color: var(--stone); font-size: 0.65rem; }
+
+    /* CTA SECTION */
+    .cta-section { background: var(--steel); padding: 6rem 2.5rem; }
+    .cta-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    @media (max-width: 768px) { .cta-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+    .cta-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      line-height: 0.92; letter-spacing: 0.04em;
+      color: var(--cement-light); margin-bottom: 1.5rem;
+    }
+    .cta-sub {
+      font-size: 0.88rem; line-height: 1.8;
+      color: rgba(244,240,235,0.5); font-weight: 300; margin-bottom: 2rem;
+    }
+    .cta-note {
+      font-size: 0.65rem; letter-spacing: 0.1em;
+      color: rgba(244,240,235,0.25); margin-top: 1rem;
+    }
+
+    .cta-contact { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-item {
+      display: flex; flex-direction: column; gap: 0.3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(244,240,235,0.08);
+    }
+    .contact-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .contact-label {
+      font-size: 0.58rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(244,240,235,0.3);
+    }
+    .contact-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem; letter-spacing: 0.05em;
+      color: var(--cement-light); line-height: 1;
+    }
+    .contact-value a {
+      color: inherit; text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .contact-value a:hover { color: var(--promo); }
+
+    .btn-promo {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+      text-decoration: none; padding: 0.95rem 2.4rem;
+      background: var(--promo); color: var(--steel);
+      border: 1px solid var(--promo);
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .btn-promo:hover { background: var(--promo-dark); border-color: var(--promo-dark); transform: translateY(-1px); }
+    .btn-promo svg { width: 12px; height: 12px; transition: transform 0.2s ease; }
+    .btn-promo:hover svg { transform: translateX(3px); }
+
+    /* FOOTER */
+    #footer { background: var(--steel); padding: 3.5rem 2.5rem 2.5rem; border-top: 1px solid rgba(200,208,220,0.1); }
+    .footer-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 3rem; flex-wrap: wrap; gap: 2rem; }
+    .footer-logo { height: 32px; width: auto; }
+    .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .footer-link {
+      font-size: 0.68rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(244,240,235,0.4); text-decoration: none; transition: color 0.2s ease;
+    }
+    .footer-link:hover { color: rgba(244,240,235,0.8); }
+    .footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-top: 1px solid rgba(200,208,220,0.08); padding-top: 1.5rem; }
+    .footer-copy { font-size: 0.65rem; letter-spacing: 0.1em; color: rgba(244,240,235,0.25); }
+
+    @media (max-width: 640px) {
+      #nav { padding: 1.2rem 1.5rem; }
+      .packages-section { padding: 5rem 1.5rem; }
+      .toppings-section { padding: 5rem 1.5rem; }
+      .flavors-section { padding: 5rem 1.5rem; }
+      .cta-section { padding: 5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html">
+    <img src="Logos/Taho%2B%20Logo%20no%20char.png" alt="TAHO+" id="nav-logo" />
+  </a>
+  <div class="nav-links">
+    <a href="menu.html" class="nav-link">Menu</a>
+    <a href="story.html" class="nav-link">Our Story</a>
+    <a href="locations.html" class="nav-link">Locations</a>
+    <a href="party-cart.html" class="nav-link active">Party Cart</a>
+  </div>
+</nav>
+
+<!-- PROMO BANNER -->
+<div class="promo-banner">
+  <span>Limited Time Offer &nbsp;—&nbsp; 30% OFF All Party Cart Packages &nbsp;—&nbsp; Book Now</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">TAHO+ — Events &amp; Parties</div>
+    <h1 class="hero-title">Party<br>Cart</h1>
+
+    <div class="discount-badge">
+      <span class="discount-num">30%</span>
+      <span class="discount-label">OFF All Packages</span>
+    </div>
+
+    <p class="hero-desc">Make your party more memorable with TAHO+, The Original Frozen Taho. Bring a soft serve machine, service crew, and the full TAHO+ experience straight to your event.</p>
+
+    <a href="#packages" class="hero-cta">
+      View Packages
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <img src="TAHO%2B%20Party%20Cart.png" alt="TAHO+ Party Cart — Frozen Taho for Events" />
+      <div class="hero-img-sheen"></div>
+    </div>
+    <div class="gma-badge">As Featured on GMA</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PACKAGES -->
+<section class="packages-section" id="packages">
+  <div class="packages-inner">
+    <div class="section-label">Choose Your Package</div>
+
+    <div class="packages-grid">
+
+      <!-- Package 1 -->
+      <div class="pkg-card">
+        <div class="pkg-num">Package 01</div>
+        <div class="pkg-name">Starter</div>
+        <div class="pkg-cups">50 Medium Cups</div>
+        <div class="pkg-price-wrap">
+          <div class="pkg-price-original">₱9,679</div>
+          <div class="pkg-price-now">
+            <span class="pkg-price-label">Now</span>
+            <span class="pkg-price-amount">₱6,775</span>
+          </div>
+        </div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-items">
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span><strong>Classic Frozen TAHO+</strong></span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>1 Soft Serve Machine</span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>1 TAHO+ Party Cart</span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>1 TAHO+ Service Crew</span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>1 Menu Board</span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>Tissue</span></div>
+        </div>
+        <div class="pkg-free-tag">FREE Chocolate Chip Cookies</div>
+      </div>
+
+      <!-- Package 2 -->
+      <div class="pkg-card">
+        <div class="pkg-num">Package 02</div>
+        <div class="pkg-name">Classic</div>
+        <div class="pkg-cups">100 Medium Cups</div>
+        <div class="pkg-price-wrap">
+          <div class="pkg-price-original">₱15,393</div>
+          <div class="pkg-price-now">
+            <span class="pkg-price-label">Now</span>
+            <span class="pkg-price-amount">₱10,775</span>
+          </div>
+        </div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-items">
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span><strong>Classic Frozen TAHO+</strong></span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>1 Soft Serve Machine</span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>1 TAHO+ Party Cart</span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>1 TAHO+ Service Crew</span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>1 Menu Board</span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>Tissue</span></div>
+        </div>
+        <div class="pkg-free-tag">FREE Chocolate Chip Cookies</div>
+      </div>
+
+      <!-- Package 3 -->
+      <div class="pkg-card featured">
+        <div class="pkg-num">Package 03</div>
+        <div class="pkg-name">Flavor Choice</div>
+        <div class="pkg-cups">100 Medium Cups</div>
+        <div class="pkg-price-wrap">
+          <div class="pkg-price-original">₱19,250</div>
+          <div class="pkg-price-now">
+            <span class="pkg-price-label">Now</span>
+            <span class="pkg-price-amount">₱13,475</span>
+          </div>
+        </div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-items">
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span><strong>3 Flavors — Your Choice!</strong></span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>1 Soft Serve Machine</span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>1 TAHO+ Party Cart</span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>1 TAHO+ Service Crew</span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>1 Menu Board</span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>Tissue</span></div>
+        </div>
+        <div class="pkg-free-tag">FREE Chocolate Chip Cookies</div>
+      </div>
+
+      <!-- Package 4 -->
+      <div class="pkg-card">
+        <div class="pkg-num">Package 04</div>
+        <div class="pkg-name">Ultimate</div>
+        <div class="pkg-cups">100 Medium Cups</div>
+        <div class="pkg-price-wrap">
+          <div class="pkg-price-original">₱22,679</div>
+          <div class="pkg-price-now">
+            <span class="pkg-price-label">Now</span>
+            <span class="pkg-price-amount">₱15,875</span>
+          </div>
+        </div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-items">
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span><strong>Unlimited Toppings of Your Choice (10)</strong></span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>Includes Exclusive Toppings*</span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>1 TAHO+ Party Cart</span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>1 Soft Serve Machine</span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>1 TAHO+ Service Crew</span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>1 Menu Board</span></div>
+          <div class="pkg-item"><span class="pkg-item-dot"></span><span>Tissue</span></div>
+        </div>
+        <div class="pkg-free-tag">FREE Chocolate Chip Cookies</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXCLUSIVE TOPPINGS -->
+<section class="toppings-section">
+  <div class="toppings-inner">
+    <div class="section-label light">Package 4 — Exclusive Toppings</div>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,4.5vw,4rem);line-height:0.92;letter-spacing:0.04em;color:var(--cement-light);margin-bottom:2.5rem;">
+      10 Exclusive<br>Toppings
+    </h2>
+    <div class="toppings-grid">
+      <span class="topping-pill">Chocolate Stones</span>
+      <span class="topping-pill">Goldine Praline</span>
+      <span class="topping-pill">Rice Crispy</span>
+      <span class="topping-pill">Biscoff Sauce</span>
+      <span class="topping-pill">Chocolate Chips</span>
+      <span class="topping-pill">Nata de Coco</span>
+      <span class="topping-pill">Fruit Jelly</span>
+      <span class="topping-pill">Coffee Jelly</span>
+      <span class="topping-pill">Sliced Almonds</span>
+      <span class="topping-pill">Melon Cubes</span>
+    </div>
+  </div>
+</section>
+
+<!-- FLAVORS -->
+<section class="flavors-section">
+  <div class="flavors-inner">
+    <div class="section-label">Available Flavors</div>
+    <div class="flavors-grid">
+
+      <div class="flavor-card">
+        <div class="flavor-name">Classic TAHO+</div>
+        <div class="flavor-items">
+          <div class="flavor-item">Frozen Taho</div>
+          <div class="flavor-item">Dark Arnibal</div>
+          <div class="flavor-item">Brown Sugar Pearls</div>
+          <div class="flavor-item">White Sago</div>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <div class="flavor-name">Strawberry TAHO+</div>
+        <div class="flavor-items">
+          <div class="flavor-item">Frozen Taho</div>
+          <div class="flavor-item">Strawberry Puree</div>
+          <div class="flavor-item">Brown Sugar Pearls</div>
+          <div class="flavor-item">Strawberry Chunks</div>
+          <div class="flavor-item">Lengua-de-Gato</div>
+          <div class="flavor-item">Crumbs</div>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <div class="flavor-name">Golden Trio</div>
+        <div class="flavor-items">
+          <div class="flavor-item">Frozen Taho</div>
+          <div class="flavor-item">Wild Honey</div>
+          <div class="flavor-item">White Sago</div>
+          <div class="flavor-item">Almond</div>
+          <div class="flavor-item">Cashew</div>
+          <div class="flavor-item">Walnut</div>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <div class="flavor-name">Mango TAHO+</div>
+        <div class="flavor-items">
+          <div class="flavor-item">Frozen Taho</div>
+          <div class="flavor-item">Dark Arnibal</div>
+          <div class="flavor-item">Brown Sugar Pearls</div>
+          <div class="flavor-item">Mango Chunks</div>
+          <div class="flavor-item">Lengua-de-Gato</div>
+          <div class="flavor-item">Crumbs</div>
+        </div>
+      </div>
+
+      <div class="flavor-card">
+        <div class="flavor-name">Cookie TAHO+</div>
+        <div class="flavor-items">
+          <div class="flavor-item">Frozen Taho</div>
+          <div class="flavor-item">Brown Sugar Pearls</div>
+          <div class="flavor-item">Cookies</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div>
+      <h2 class="cta-heading">Ready to Book<br>Your Party Cart?</h2>
+      <p class="cta-sub">Message or call us to reserve your date. We'll handle the rest — machine, crew, cups, and all the frozen taho your guests can enjoy.</p>
+      <a href="tel:09175966424" class="btn-promo">
+        Call to Book
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <p class="cta-note">* Transportation cost not yet included in package prices.</p>
+    </div>
+    <div class="cta-contact">
+      <div class="contact-item">
+        <span class="contact-label">Call or Text</span>
+        <span class="contact-value"><a href="tel:09175966424">0917 596 6424</a></span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Instagram / Facebook / TikTok</span>
+        <span class="contact-value"><a href="https://instagram.com/tahoplusph" target="_blank">@tahoplusph</a></span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Coverage</span>
+        <span class="contact-value" style="font-size:1.1rem;letter-spacing:0.04em;">Metro Manila, Philippines</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="footer-top">
+      <img src="Logos/Taho%2B%20Logo%20no%20char.png" alt="TAHO+" class="footer-logo" />
+      <div class="footer-links">
+        <a href="menu.html" class="footer-link">Menu</a>
+        <a href="story.html" class="footer-link">Our Story</a>
+        <a href="locations.html" class="footer-link">Locations</a>
+        <a href="party-cart.html" class="footer-link">Party Cart</a>
+        <a href="index.html#faq" class="footer-link">FAQ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 TAHO+ — The Original Frozen Taho. All rights reserved.</span>
+      <span class="footer-copy">Manila, Philippines</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
